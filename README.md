@@ -1,2 +1,4 @@
-# Sistema_DNIT
-Sistema de desenvolvimento voluntario para empresa Consorcio CE
+# Levantamento de requisitos
+Linguagem de programação usada: Python
+Banco de Dados: PostgreSQL
+
