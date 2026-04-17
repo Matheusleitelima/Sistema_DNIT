@@ -1,1 +1,22 @@
-<a href="/cadastrar">Novo processo</a>
+<h1>Lista de Processos</h1>
+
+<table border="1">
+    <tr>
+        <th>Número</th>
+        <th>Tipo</th>
+        <th>Interessado</th>
+        <th>Responsável</th>
+    </tr>
+
+    {% for processo in processos %}
+    <tr>
+        <td>{{ processo.numero }}</td>
+        <td>{{ processo.tipo }}</td>
+        <td>{{ processo.interessado }}</td>
+        <td>{{ processo.responsavel }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/cadastrar">Cadastrar novo processo</a>
