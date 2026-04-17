@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Editar Processo</h1>
+
+<form method="POST">
+
+    <label>Número:</label>
+    <input type="text" name="numero" value="{{ processo.numero }}">
+
+    <label>Tipo:</label>
+    <select name="tipo">
+        <option value="Acesso" {% if processo.tipo == 'Acesso' %}selected{% endif %}>Acesso</option>
+        <option value="Energia" {% if processo.tipo == 'Energia' %}selected{% endif %}>Energia</option>
+    </select>
+
+    <label>Interessado:</label>
+    <input type="text" name="interessado" value="{{ processo.interessado }}">
+
+    <label>Responsável:</label>
+    <input type="text" name="responsavel" value="{{ processo.responsavel }}">
+
+    <button type="submit">Atualizar</button>
+</form>
+
+<a href="/">Voltar</a>
+
+</body>
+</html>
