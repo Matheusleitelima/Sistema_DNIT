@@ -1,21 +1,36 @@
-<h1>Cadastro</h1>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
 
-<form method="POST"> <!--enviar para o back -->
-    <label>Numero: </label><br>
-    <input type="text" name="numero"><br><br>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-    <label> Tipo: </label><br>
+<h1>Cadastro de Processo Dnit</h1>
+
+<form method="POST">
+
+    <label>Número:</label>
+    <input type="text" name="numero">
+
+    <label>Tipo:</label>
     <select name="tipo">
         <option value="Acesso">Acesso</option>
         <option value="Energia">Energia</option>
-    </select> <br><br>
-    <label>Interessado: </label>
-    <input type="text" name="interessado"><br><br>
+    </select>
 
-    <label>Responsavel</label><br>
-    <input type="text" name="responsavel"><br><br>
+    <label>Interessado:</label>
+    <input type="text" name="interessado">
+
+    <label>Responsável:</label>
+    <input type="text" name="responsavel">
 
     <button type="submit">Salvar</button>
 </form>
 
 <a href="/">Voltar</a>
+
+</body>
+</html>
