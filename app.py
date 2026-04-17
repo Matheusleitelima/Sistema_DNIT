@@ -39,6 +39,31 @@ def cadastrar():
 
     return render_template('cadastrar.html') #retornar a pag html
 
+#rota para excluir
+@app.route('/excluir/<int:id>') #id do processo, busca no banco  e exclui
+def excluir(id):
+    processo = Processo.query.get(id)
+    db.session.delete(processo)
+    db.session.commit()
+
+    return redirect('/')
+
+#rota para atualizar
+
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    processo = Processo.query.get(id)
+
+    if request.method == 'POST':
+        processo.numero = request.form['numero']
+        processo.tipo = request.form['tipo']
+        processo.interessado = request.form['interessado']
+        processo.responsavel = request.form['responsavel']
+
+        db.session.commit()
+        return redirect('/')
+
+    return render_template('editar.html', processo=processo)
 
 if __name__ == '__main__':
     app.run(debug=True)
