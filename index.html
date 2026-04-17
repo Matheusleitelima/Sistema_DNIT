@@ -1,11 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Processos</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
 <h1>Lista de Processos</h1>
 
-<table border="1">
+<table>
     <tr>
         <th>Número</th>
         <th>Tipo</th>
         <th>Interessado</th>
         <th>Responsável</th>
+        <th>Ações</th>
     </tr>
 
     {% for processo in processos %}
@@ -14,9 +26,15 @@
         <td>{{ processo.tipo }}</td>
         <td>{{ processo.interessado }}</td>
         <td>{{ processo.responsavel }}</td>
+        <td>
+            <a href="{{ url_for('editar', id=processo.id) }}">Editar</a>
+            <a href="{{ url_for('excluir', id=processo.id) }}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+        </td>
     </tr>
     {% endfor %}
 </table>
 
-<br>
 <a href="/cadastrar">Cadastrar novo processo</a>
+
+</body>
+</html>
