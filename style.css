@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #2e7d32;
+    text-align: center;
+}
+
+table {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #e8f5e9;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #2e7d32;
+    padding: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #1b5e20;
+}
+
+
+/* FORMULÁRIO DE CADASTRO */
+
+form {
+    width: 400px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+label {
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #2e7d32;
+}
+
+button {
+    width: 100%;
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #1b5e20;
+}
+
+/* BOTÃO VOLTAR */
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+td a {
+    background-color: #c62828;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+td a:hover {
+    background-color: #b71c1c;
+}
+
+
+
+
+td a:first-child {
+    background-color: #1565c0;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+td a:first-child:hover {
+    background-color: #0d47a1;
+}
+
+
+td a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 2px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Botão editar */
+td a:first-child {
+    background-color: #2d6cdf;
+    color: white;
+}
+
+/* Botão excluir */
+td a:last-child {
+    background-color: #c62828;
+    color: white;
+}
