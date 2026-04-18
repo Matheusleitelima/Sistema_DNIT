@@ -1,28 +1,35 @@
 from flask import Flask, render_template, request, redirect
 from models import db, Processo
+import os
 
 app = Flask(__name__)
 
-#Configurando o bd
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg://postgres:1205@127.0.0.1:5432/processos_db'
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    "client_encoding": "utf8"
-}
+# 🔥 CONFIGURAÇÃO DO BANCO (Render)
+database_url = os.getenv('DATABASE_URL')
+
+# Corrige problema comum do Render (postgres:// → postgresql://)
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 
-#Criar tabelas no SQL
-
+# 🔥 Criar tabelas automaticamente
 with app.app_context():
     db.create_all()
 
-# rota principal
+# ================= ROTAS =================
+
+# Home
 @app.route('/')
 def home():
-    processos = Processo.query.all() #pegar todos os dados do banco
-    return render_template('index.html', processos = processos)
+    processos = Processo.query.all()
+    return render_template('index.html', processos=processos)
 
-# rota de cadastro + crud no bd
-@app.route('/cadastrar', methods=['GET', 'POST']) #rota, get abre a pag e post envia os dados
+# Cadastro
+@app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
     if request.method == 'POST':
         processo = Processo(
@@ -35,21 +42,22 @@ def cadastrar():
         db.session.add(processo)
         db.session.commit()
 
-        return redirect('/') #salva e volta a tela de inicio
+        return redirect('/')
 
-    return render_template('cadastrar.html') #retornar a pag html
+    return render_template('cadastrar.html')
 
-#rota para excluir
-@app.route('/excluir/<int:id>') #id do processo, busca no banco  e exclui
+# Excluir
+@app.route('/excluir/<int:id>')
 def excluir(id):
     processo = Processo.query.get(id)
-    db.session.delete(processo)
-    db.session.commit()
+
+    if processo:
+        db.session.delete(processo)
+        db.session.commit()
 
     return redirect('/')
 
-#rota para atualizar
-
+# Editar
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
     processo = Processo.query.get(id)
@@ -64,6 +72,8 @@ def editar(id):
         return redirect('/')
 
     return render_template('editar.html', processo=processo)
+
+# ================= RUN =================
 
 if __name__ == '__main__':
     app.run(debug=True)
