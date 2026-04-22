@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-# 🔥 CONFIGURAÇÃO DO BANCO (Render)
+# CONFIGURAÇÃO DO BANCO (Render)
 database_url = os.getenv('DATABASE_URL')
 
 # Corrige padrão antigo do Render
@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-# 🔥 Criar tabelas (com segurança)
+#  Criar tabelas (com segurança)
 with app.app_context():
     db.create_all()
 
