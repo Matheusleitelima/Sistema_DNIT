@@ -4,11 +4,16 @@ import os
 
 app = Flask(__name__)
 
-# CONFIGURAÇÃO DO BANCO (Render)
+# ================= CONFIG BANCO =================
+
 database_url = os.getenv('DATABASE_URL')
 
+# Se não tiver no Render, vai avisar claramente
+if not database_url:
+    raise ValueError("DATABASE_URL não está definida no ambiente!")
+
 # Corrige padrão antigo do Render
-if database_url and database_url.startswith("postgres://"):
+if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql+psycopg://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
@@ -16,17 +21,22 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-#  Criar tabelas (com segurança)
-with app.app_context():
-    db.create_all()
+# Criar tabelas (sem quebrar deploy)
+try:
+    with app.app_context():
+        db.create_all()
+except Exception as e:
+    print("Erro ao criar tabelas:", e)
 
 # ================= ROTAS =================
 
+# Home
 @app.route('/')
 def home():
     processos = Processo.query.all()
     return render_template('index.html', processos=processos)
 
+# Cadastro
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
     if request.method == 'POST':
@@ -44,6 +54,7 @@ def cadastrar():
 
     return render_template('cadastrar.html')
 
+# Excluir
 @app.route('/excluir/<int:id>')
 def excluir(id):
     processo = Processo.query.get(id)
@@ -54,6 +65,7 @@ def excluir(id):
 
     return redirect('/')
 
+# Editar
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
     processo = Processo.query.get(id)
